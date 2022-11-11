@@ -70,6 +70,22 @@ public class P11 {
       }
     }
 
+    // Diagonally
+    // Down right
+    for (int row = 0; row < array.length - 3; row++) {
+      for (int col = 0; col < array.length-3; col++) {
+        product = array[row][col] * array[row + 1][col+1] * array[row + 2][col+2] * array[row + 3][col+3];
+        largest = Math.max(product, largest);
+      }
+    }
+    // Down left
+    for (int row = 0; row < array.length - 3; row++) {
+      for (int col = array.length - 1; col > 3; col--) {
+        product = array[row][col] * array[row + 1][col-1] * array[row + 2][col-2] * array[row + 3][col-3];
+        largest = Math.max(product, largest);
+      }
+    }
+
     return largest;
   }
 
