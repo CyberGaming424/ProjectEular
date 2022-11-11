@@ -1,7 +1,7 @@
 public class Main {
 
     public static void main(String args[]){
-        new P11();
+        new P12();
     }
 
 }
