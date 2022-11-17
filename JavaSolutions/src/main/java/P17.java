@@ -1,89 +1,33 @@
 class P17 {
 
-  String[] singDig = {
-      "zero",
-      "one",
-      "two",
-      "three",
-      "four",
-      "five",
-      "six",
-      "seven",
-      "eight",
-      "nine"
-  };
-
-  String[] dubDig = {
-      "ten",
-      "eleven",
-      "twelve",
-      "thirteen",
-      "fourteen",
-      "fifteen",
-      "sixteen",
-      "seventeen",
-      "eighteen",
-      "nineteen"
-  };
-
-  String hAnd = "hundredand";
-
-  public P17() {
-    int len = 0;
-    for (String e : singDig) {
-      len += e.length();
+  public P17(){
+    int sum = 0;
+    for(int i = 1; i<=1000;i++){
+      sum+=toEnglish(i).length();
     }
-
-    for (int i = 10; i <= 1000; i++) {
-      String[] num = String.valueOf(i).split("");
-      if (i < 20) {
-        len += dubDig[i - 10].length();
-      } else if(i >= 20 && i < 100){
-        len+=dubDig(num[0]);
-        if(!num[1].equalsIgnoreCase("0")){
-          len+=singDig[Integer.parseInt(num[1])].length();
-        }
-      }else {
-        if(num[1].equalsIgnoreCase("0")){
-          len+=singDig[Integer.parseInt(num[0])].length() + hAnd.length() + singDig[Integer.parseInt(num[2])].length();
-        }else{
-          len+=singDig[Integer.parseInt(num[0])].length() + hAnd.length() + dubDig(num[1]) +singDig[Integer.parseInt(num[2])].length();
-        }
-      }
-    }
-    System.out.println(len+"onethousand".length());
-
+    System.out.println(sum);
   }
 
-  private int dubDig(String dig){
-    int len = 0;
-    switch (dig){
-      case "2":
-        len+="twenty".length();
-        break;
-      case "3":
-        len+="thirty".length();
-        break;
-      case "4":
-        len+="forty".length();
-        break;
-      case "5":
-        len+="fifty".length();
-        break;
-      case "6":
-        len+="sixty".length();
-        break;
-      case "7":
-        len+="seventy".length();
-        break;
-      case "8":
-        len+="eighty".length();
-        break;
-      case "9":
-        len+="ninety".length();
-        break;
-    }
-    return len;
-  }
-
+  private static String toEnglish(int n) {
+		if (0 <= n && n < 20)
+			return ONES[n];
+		else if (20 <= n && n < 100)
+			return TENS[n / 10] + (n % 10 != 0 ? ONES[n % 10] : "");
+		else if (100 <= n && n < 1000)
+			return ONES[n / 100] + "hundred" + (n % 100 != 0 ? "and" + toEnglish(n % 100) : "");
+		else if (1000 <= n && n < 1000000)
+			return toEnglish(n / 1000) + "thousand" + (n % 1000 != 0 ? toEnglish(n % 1000) : "");
+		else
+			throw new IllegalArgumentException();
+	}
+	
+	
+	private static String[] ONES = {
+		"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+		"ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"};
+	
+	private static String[] TENS = {
+		"", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
+	
 }
+
